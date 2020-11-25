@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import random
-
+# import enemy_class
 
 def spawn_pos_of_enemy_type_1():
     pos_list_for_type_1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
