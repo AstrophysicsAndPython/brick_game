@@ -14,6 +14,7 @@ for blocks in range(global_variables.cell_number):
 
 class WALL:
     def __init__(self):
+        self.__name__ = 'wall'
         self.body_left = wall_body_left
         self.body_right = wall_body_right
 
@@ -33,6 +34,7 @@ class WALL:
 
 class ENEMY_TYPE_1:
     def __init__(self):
+        self.__name__ = 'type1'
         rand_pos_for_type_1 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_1()
         self.body = [
             Vector2(rand_pos_for_type_1+0,-6), Vector2(rand_pos_for_type_1+2,-6), Vector2(rand_pos_for_type_1+4,-6),
@@ -57,6 +59,7 @@ class ENEMY_TYPE_1:
 
 class ENEMY_TYPE_2:
     def __init__(self):
+        self.__name__ = 'type2'
         rand_pos_for_type_2 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_2()
         self.body = [
             Vector2(rand_pos_for_type_2+0,-6), Vector2(rand_pos_for_type_2+2,-6), Vector2(rand_pos_for_type_2+4,-6), Vector2(rand_pos_for_type_2+5,-6), Vector2(rand_pos_for_type_2+7,-6), Vector2(rand_pos_for_type_2+9,-6),
@@ -81,6 +84,7 @@ class ENEMY_TYPE_2:
 
 class ENEMY_TYPE_3:
     def __init__(self):
+        self.__name__ = 'type3'
         rand_pos_for_type_3 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_3()
         self.body = [
             Vector2(rand_pos_for_type_3+0,-6), Vector2(rand_pos_for_type_3+2,-6), Vector2(rand_pos_for_type_3+4,-6), Vector2(rand_pos_for_type_3+10,-6), Vector2(rand_pos_for_type_3+12,-6), Vector2(rand_pos_for_type_3+14,-6),
@@ -95,8 +99,7 @@ class ENEMY_TYPE_3:
         for block in self.body:
             enemy_x_pos = int(block.x*global_variables.cell_size)
             enemy_y_pos = int(block.y*global_variables.cell_size)
-            enemy_rect = pygame.Rect(enemy_x_pos, enemy_y_pos,
-                                     global_variables.cell_size, global_variables.cell_size)
+            enemy_rect = pygame.Rect(enemy_x_pos, enemy_y_pos, global_variables.cell_size, global_variables.cell_size)
             pygame.draw.rect(global_variables.screen, pygame.Color('red'), enemy_rect)
 
     def move_enemy(self):
@@ -104,15 +107,58 @@ class ENEMY_TYPE_3:
             block += self.direction_vector
 
 
+class ENEMY_TYPE_4:
+    def __init__(self):
+        self.__name__ = 'type4'
+        rand_pos_for_type_1 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_1()
+        self.body = [
+            Vector2(rand_pos_for_type_1+0,-6), Vector2(rand_pos_for_type_1+2,-6), Vector2(rand_pos_for_type_1+4,-6),
+            Vector2(rand_pos_for_type_1+1,-5), Vector2(rand_pos_for_type_1+2,-5), Vector2(rand_pos_for_type_1+3,-5),
+            Vector2(rand_pos_for_type_1+1,-4), Vector2(rand_pos_for_type_1+2,-4), Vector2(rand_pos_for_type_1+3,-4),
+            Vector2(rand_pos_for_type_1+1,-3), Vector2(rand_pos_for_type_1+2,-3), Vector2(rand_pos_for_type_1+3,-3),
+            Vector2(rand_pos_for_type_1+0,-2), Vector2(rand_pos_for_type_1+2,-2), Vector2(rand_pos_for_type_1+4,-2)
+        ]
+        self.move_down = Vector2(0, 1)
+        self.move_down_right = Vector2(5,1)
+        self.move_down_left = Vector2(-5, 1)
+
+    def draw_enemy(self):
+        for block in self.body:
+            enemy_x_pos = int(block.x*global_variables.cell_size)
+            enemy_y_pos = int(block.y*global_variables.cell_size)
+            enemy_rect = pygame.Rect(enemy_x_pos, enemy_y_pos, global_variables.cell_size, global_variables.cell_size)
+            pygame.draw.rect(global_variables.screen, pygame.Color('red'), enemy_rect)
+
+    def move_enemy(self):
+        move_pos_array = [2, 7, 12]
+        for block in self.body:
+            block += self.move_down
+            if block.x == 1 and block.y in move_pos_array:
+                for block in self.body:
+                    block += self.move_down_right
+            elif block.x == 6 and block.y in move_pos_array:
+                rand_int = random.randint(0, 50)
+                if rand_int%2 == 0:
+                    for block in self.body:
+                        block += self.move_down_left
+                else:
+                    for block in self.body:
+                        block += self.move_down_right
+            elif block.x == 11 and block.y in move_pos_array:
+                for block in self.body:
+                    block += self.move_down_left
+
 def enemy_type():
-    enemy_spawn_chance_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    enemy_spawn_chance_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     enemy_spawn_chance = random.choice(enemy_spawn_chance_list)
 
-    if enemy_spawn_chance in [1, 4, 7]:
+    if enemy_spawn_chance in [1, 5, 9]:
         enemy = ENEMY_TYPE_1()
-    elif enemy_spawn_chance in [2, 5, 8]:
+    elif enemy_spawn_chance in [2, 6, 10]:
         enemy = ENEMY_TYPE_2()
-    elif enemy_spawn_chance in [3, 6, 9]:
+    elif enemy_spawn_chance in [3, 7, 11]:
         enemy = ENEMY_TYPE_3()
+    elif enemy_spawn_chance in [4, 8, 12]:
+        enemy = ENEMY_TYPE_4()
 
     return enemy

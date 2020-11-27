@@ -6,12 +6,13 @@ from pygame.math import Vector2
 
 class PLAYER:
     def __init__(self):
+        final_block = int(global_variables.cell_number/2) - 1
         self.body = [
-            Vector2(1,17), Vector2(3,17), Vector2(5,17),
-            Vector2(2,18), Vector2(3,18), Vector2(4,18),
-            Vector2(3,19),
-            Vector2(2,20), Vector2(3,20), Vector2(4,20),
-            Vector2(1,21), Vector2(3,21), Vector2(5,21)
+            Vector2(1,final_block-4), Vector2(3,final_block-4), Vector2(5,final_block-4),
+            Vector2(2,final_block-3), Vector2(3,final_block-3), Vector2(4,final_block-3),
+            Vector2(3,final_block-2),
+            Vector2(2,final_block-1), Vector2(3,final_block-1), Vector2(4,final_block-1),
+            Vector2(1,final_block-0), Vector2(3,final_block-0), Vector2(5,final_block-0)
         ]
         self.direction_vector = Vector2(5, 0)
 
