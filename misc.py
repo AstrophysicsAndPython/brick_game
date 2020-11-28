@@ -47,14 +47,14 @@ def show_game_over_screen(game_over, first_time):
 
         display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
 
-        display_text(font_size=18, text_to_display='Press \'r\' or \'Space\' key to start the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
+        display_text(font_size=18, text_to_display='Press the Spacebar key to start the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
     else:
         global_variables.screen.fill(pygame.Color('black'))
         display_text(font_size=72, text_to_display='GAME OVER', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/8, display_position='center')
 
         display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
 
-        display_text(font_size=18, text_to_display='Press \'r\' or \'Space\' key to restart the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
+        display_text(font_size=18, text_to_display='Press r or Spacebar key to restart the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
 
     display_text(font_size=22, text_to_display='Press Esc key or [Alt+F4] to quit', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/6, display_position='center')
 
