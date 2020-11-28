@@ -68,8 +68,12 @@ def show_game_over_screen(game_over, first_time):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit(), sys.exit()
-                if event.key in [pygame.K_r, pygame.K_SPACE]:
-                    game_over, first_time = False, False
+                if first_time:
+                    if event.key == pygame.K_SPACE:
+                        game_over, first_time = False, False
+                else:
+                    if event.key in [pygame.K_r, pygame.K_SPACE]:
+                        game_over, first_time = False, False
 
     return game_over, first_time
 
