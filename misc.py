@@ -19,10 +19,10 @@ def enemy_player_collision(enemy, player):
 def key_press(event, player):
     if event.key == pygame.K_ESCAPE:
         pygame.quit(), sys.exit()
-    elif event.key == pygame.K_LEFT and player.body[0].x != 1:
+    elif event.key in [pygame.K_LEFT, pygame.K_a] and player.body[0].x != 1:
         player.direction_vector = pygame.math.Vector2(-5, 0)
         player.move_aeroplane()
-    elif event.key == pygame.K_RIGHT and player.body[0].x != 11:
+    elif event.key in [pygame.K_RIGHT, pygame.K_d] and player.body[0].x != 11:
         player.direction_vector = pygame.math.Vector2(5, 0)
         player.move_aeroplane()
 
@@ -45,10 +45,14 @@ def show_game_over_screen(game_over, first_time):
         global_variables.screen.fill(pygame.Color('gray'))
         display_text(font_size=72, text_to_display='WELCOME!', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/8, display_position='center')
 
+        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
+
         display_text(font_size=18, text_to_display='Press \'r\' or \'Space\' key to start the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
     else:
         global_variables.screen.fill(pygame.Color('black'))
         display_text(font_size=72, text_to_display='GAME OVER', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/8, display_position='center')
+
+        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
 
         display_text(font_size=18, text_to_display='Press \'r\' or \'Space\' key to restart the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
 
