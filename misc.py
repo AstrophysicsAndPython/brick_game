@@ -1,9 +1,11 @@
-#!/usr/bin/python3
+"""
+Created on Nov 27 00:00:00 2021
+"""
 
-import os
 import sys
+
 import pygame
-import enemy_class
+
 import global_variables
 
 
@@ -29,8 +31,8 @@ def key_press(event, player):
 
 def display_text(font_size, text_to_display, text_color, pos_x, pos_y, display_position):
     font = pygame.font.Font('Font/inconsolata.ttf', font_size)
-    text = str('%s' %(text_to_display))
-    text_surface = font.render(text, True, pygame.Color('%s' %(text_color)))
+    text = str('%s' % (text_to_display))
+    text_surface = font.render(text, True, pygame.Color('%s' % (text_color)))
     text_x, text_y = int(pos_x), int(pos_y)
     if display_position == 'center':
         text_surface_rect = text_surface.get_rect(center=(text_x, text_y))
@@ -40,23 +42,29 @@ def display_text(font_size, text_to_display, text_color, pos_x, pos_y, display_p
 
 
 def show_game_over_screen(game_over, first_time):
-
     if first_time:
         global_variables.screen.fill(pygame.Color('gray'))
-        display_text(font_size=72, text_to_display='WELCOME!', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/8, display_position='center')
+        display_text(font_size=72, text_to_display='WELCOME!', text_color='red', pos_x=global_variables.resolution / 4.5, pos_y=global_variables.resolution / 8,
+                     display_position='center')
 
-        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
+        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution / 4.5,
+                     pos_y=global_variables.resolution / 4.25, display_position='center')
 
-        display_text(font_size=18, text_to_display='Press the Spacebar key to start the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
+        display_text(font_size=18, text_to_display='Press the Spacebar key to start the game', text_color='red', pos_x=global_variables.resolution / 4.5,
+                     pos_y=global_variables.resolution / 3, display_position='center')
     else:
         global_variables.screen.fill(pygame.Color('black'))
-        display_text(font_size=72, text_to_display='GAME OVER', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/8, display_position='center')
+        display_text(font_size=72, text_to_display='GAME OVER', text_color='red', pos_x=global_variables.resolution / 4.5, pos_y=global_variables.resolution / 8,
+                     display_position='center')
 
-        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/4.25, display_position='center')
+        display_text(font_size=18, text_to_display='Press Left/Right arrow keys or A/D to move', text_color='red', pos_x=global_variables.resolution / 4.5,
+                     pos_y=global_variables.resolution / 4.25, display_position='center')
 
-        display_text(font_size=18, text_to_display='Press r or Spacebar key to restart the game', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/3, display_position='center')
+        display_text(font_size=18, text_to_display='Press r or Spacebar key to restart the game', text_color='red', pos_x=global_variables.resolution / 4.5,
+                     pos_y=global_variables.resolution / 3, display_position='center')
 
-    display_text(font_size=22, text_to_display='Press Esc key or [Alt+F4] to quit', text_color='red', pos_x=global_variables.resolution/4.5, pos_y=global_variables.resolution/6, display_position='center')
+    display_text(font_size=22, text_to_display='Press Esc key or [Alt+F4] to quit', text_color='red', pos_x=global_variables.resolution / 4.5,
+                 pos_y=global_variables.resolution / 6, display_position='center')
 
     pygame.display.flip()
 
@@ -79,18 +87,17 @@ def show_game_over_screen(game_over, first_time):
 
 
 def displaying_score(score):
+    display_text(
+            font_size=24, text_to_display='CURRENT SCORE', text_color='green',
+            pos_x=global_variables.width, pos_y=50,
+            display_position='topright'
+            )
 
     display_text(
-        font_size=24, text_to_display='CURRENT SCORE', text_color='green',
-        pos_x=global_variables.width, pos_y=50,
-        display_position='topright'
-        )
-
-    display_text(
-        font_size=32, text_to_display=sum(score), text_color='green',
-        pos_x=global_variables.width, pos_y=70,
-        display_position='topright'
-        )
+            font_size=32, text_to_display=sum(score), text_color='green',
+            pos_x=global_variables.width, pos_y=70,
+            display_position='topright'
+            )
 
 
 def getting_current_score(enemy):
@@ -105,8 +112,8 @@ def getting_current_score(enemy):
 
 
 def saving_score(score, mode):
-    high_score_file = open('high_score_file.txt', '%s' %(mode))
-    high_score_file.write(str(sum(score))+'\n')
+    high_score_file = open('high_score_file.txt', '%s' % (mode))
+    high_score_file.write(str(sum(score)) + '\n')
     high_score_file.close()
 
 
@@ -119,13 +126,13 @@ def displaying_high_score():
         max_val = 0
 
     display_text(
-        font_size=24, text_to_display='HIGH SCORE', text_color='green',
-        pos_x=global_variables.resolution/2.25, pos_y=0,
-        display_position='topright'
-        )
+            font_size=24, text_to_display='HIGH SCORE', text_color='green',
+            pos_x=global_variables.resolution / 2.25, pos_y=0,
+            display_position='topright'
+            )
 
     display_text(
-        font_size=32, text_to_display=int(max_val), text_color='green',
-        pos_x=global_variables.resolution/2.25, pos_y=20,
-        display_position='topright'
-        )
+            font_size=32, text_to_display=int(max_val), text_color='green',
+            pos_x=global_variables.resolution / 2.25, pos_y=20,
+            display_position='topright'
+            )
