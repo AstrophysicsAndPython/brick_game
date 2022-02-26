@@ -1,6 +1,10 @@
-#!/usr/bin/python3
+"""
+Created on Nov 25 00:00:00 2021
+"""
 
 import random
+
+
 # import enemy_class
 
 def spawn_pos_of_enemy_type_1():
@@ -27,6 +31,7 @@ def spawn_pos_of_enemy_type_2():
         rand_pos_for_type_2 = 6
 
     return rand_pos_for_type_2
+
 
 def spawn_pos_of_enemy_type_3():
     return 1

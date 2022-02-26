@@ -1,11 +1,15 @@
-#!/usr/bin/python3
+"""
+Created on Nov 25 00:00:00 2021
+"""
 
 import sys
-import misc
+
 import pygame
+
 import enemy_class
-import player_class
 import global_variables
+import misc
+import player_class
 
 pygame.init()
 
