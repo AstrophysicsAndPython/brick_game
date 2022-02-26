@@ -10,33 +10,31 @@ from pygame.math import Vector2
 import global_variables
 import spawn_pos_for_enemies
 
-wall_body_left, wall_body_right = [], []
-for blocks in range(global_variables.cell_number):
-    wall_body_left.append(Vector2(0, blocks))
-    wall_body_right.append(Vector2(16, blocks))
+wall_right = [Vector2(0, blocks) for blocks in range(global_variables.cell_number)]
+wall_left = [Vector2(16, blocks) for blocks in range(global_variables.cell_number)]
 
 
 class WALL:
     def __init__(self):
         self.__name__ = 'wall'
-        self.body_left = wall_body_left
-        self.body_right = wall_body_right
+        self.wall_left = wall_left
+        self.wall_right = wall_right
 
     def draw_wall(self):
-        for block in self.body_left:
+        for block in self.wall_left:
             wall_left_x_pos = int(block.x * global_variables.cell_size)
             wall_left_y_pos = int(block.y * global_variables.cell_size)
             wall_left_rect = pygame.Rect(wall_left_x_pos, wall_left_y_pos, global_variables.cell_size, global_variables.cell_size)
             pygame.draw.rect(global_variables.screen, pygame.Color('red'), wall_left_rect)
 
-        for block in self.body_right:
+        for block in self.wall_right:
             wall_right_x_pos = int(block.x * global_variables.cell_size)
             wall_right_y_pos = int(block.y * global_variables.cell_size)
             wall_right_rect = pygame.Rect(wall_right_x_pos, wall_right_y_pos, global_variables.cell_size, global_variables.cell_size)
             pygame.draw.rect(global_variables.screen, pygame.Color('red'), wall_right_rect)
 
 
-class ENEMY_TYPE_1:
+class EnemyType1:
     def __init__(self):
         self.__name__ = 'type1'
         rand_pos_for_type_1 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_1()
@@ -61,7 +59,7 @@ class ENEMY_TYPE_1:
             block += self.direction_vector
 
 
-class ENEMY_TYPE_2:
+class EnemyType2:
     def __init__(self):
         self.__name__ = 'type2'
         rand_pos_for_type_2 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_2()
@@ -90,7 +88,7 @@ class ENEMY_TYPE_2:
             block += self.direction_vector
 
 
-class ENEMY_TYPE_3:
+class EnemyType3:
     def __init__(self):
         self.__name__ = 'type3'
         rand_pos_for_type_3 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_3()
@@ -119,7 +117,7 @@ class ENEMY_TYPE_3:
             block += self.direction_vector
 
 
-class ENEMY_TYPE_4:
+class EnemyType4:
     def __init__(self):
         self.__name__ = 'type4'
         rand_pos_for_type_1 = spawn_pos_for_enemies.spawn_pos_of_enemy_type_1()
@@ -162,16 +160,6 @@ class ENEMY_TYPE_4:
 
 
 def enemy_type():
-    enemy_spawn_chance_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    enemy_spawn_chance = random.choice(enemy_spawn_chance_list)
+    rand_ = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 
-    if enemy_spawn_chance in [1, 5, 9]:
-        enemy = ENEMY_TYPE_1()
-    elif enemy_spawn_chance in [2, 6, 10]:
-        enemy = ENEMY_TYPE_2()
-    elif enemy_spawn_chance in [3, 7, 11]:
-        enemy = ENEMY_TYPE_3()
-    elif enemy_spawn_chance in [4, 8, 12]:
-        enemy = ENEMY_TYPE_4()
-
-    return enemy
+    return EnemyType1 if rand_ in [1, 5, 9] else EnemyType2 if rand_ in [2, 6, 10] else EnemyType3 if rand_ in [3, 7, 11] else EnemyType4

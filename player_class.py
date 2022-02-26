@@ -8,7 +8,7 @@ from pygame.math import Vector2
 import global_variables
 
 
-class PLAYER:
+class Player:
     def __init__(self):
         final_block = int(global_variables.cell_number / 2) - 1
         self.body = [

@@ -6,52 +6,57 @@ import sys
 
 import pygame
 
-import enemy_class
 import global_variables
 import misc
-import player_class
+from enemy_class import WALL, enemy_type
+from player_class import Player
 
-pygame.init()
 
-game_on, game_over, first_time = True, True, True
+def main():
+    pygame.init()
 
-while game_on:
-    for event in pygame.event.get():
-        if game_over:
-            game_over, first_time = misc.show_game_over_screen(game_over=game_over, first_time=first_time)
+    game_on, game_over, first_time = True, True, True
 
-            score = []
-            player = player_class.PLAYER()
-            wall, enemy = enemy_class.WALL(), enemy_class.enemy_type()
+    while game_on:
+        for event in pygame.event.get():
+            if game_over:
+                game_over, first_time = misc.show_game_over_screen(game_over=game_over, first_time=first_time)
 
-            SCREEN_UPDATE = pygame.USEREVENT
-            pygame.time.set_timer(SCREEN_UPDATE, 35)
+                score = []
+                player = Player()
+                wall, enemy = WALL(), enemy_type()
 
-        if event.type == pygame.QUIT:
-            pygame.quit(), sys.exit()
-        if event.type == SCREEN_UPDATE:
-            enemy.move_enemy()
-        if event.type == pygame.KEYDOWN:
-            misc.key_press(event=event, player=player)
-        if enemy.body[0].y == 28:
-            score.append(misc.getting_current_score(enemy=enemy))
-            enemy = enemy_class.enemy_type()
-            if enemy.__name__ == 'type4':
+                SCREEN_UPDATE = pygame.USEREVENT
                 pygame.time.set_timer(SCREEN_UPDATE, 35)
-            else:
-                pygame.time.set_timer(SCREEN_UPDATE, 20)
-        result = misc.enemy_player_collision(enemy=enemy, player=player)
-        if result == 0:
-            game_over = True
-            if score != 0:
-                misc.saving_score(score=score, mode='a')
 
-    wall.draw_wall()
-    enemy.draw_enemy()
-    player.draw_aeroplane()
-    misc.displaying_high_score()
-    misc.displaying_score(score=score)
+            if event.type == pygame.QUIT:
+                pygame.quit(), sys.exit()
+            if event.type == SCREEN_UPDATE:
+                enemy.move_enemy()
+            if event.type == pygame.KEYDOWN:
+                misc.key_press(event=event, player=player)
+            if enemy.body[0].y == 28:
+                score.append(misc.getting_current_score(enemy=enemy))
+                enemy = enemy_type()
 
-    pygame.display.update()
-    global_variables.clock.tick(60)
-    global_variables.screen.fill(pygame.Color('gray'))
+                pygame.time.set_timer(SCREEN_UPDATE, 30) if enemy.__name__ == 'type4' else pygame.time.set_timer(SCREEN_UPDATE, 20)
+
+            result = misc.enemy_player_collision(enemy=enemy, player=player)
+            if result == 0:
+                game_over = True
+                if score != 0:
+                    misc.saving_score(score=score)
+
+        wall.draw_wall()
+        enemy.draw_enemy()
+        player.draw_aeroplane()
+        misc.displaying_high_score()
+        misc.displaying_score(score=score)
+
+        pygame.display.update()
+        global_variables.clock.tick(60)
+        global_variables.screen.fill(pygame.Color('gray'))
+
+
+if __name__ == '__main__':
+    sys.exit(main())
