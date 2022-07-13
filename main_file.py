@@ -8,7 +8,7 @@ import pygame
 
 import global_variables
 import misc
-from enemy_class import WALL, enemy_type
+from enemy_class import WALL, pick_enemy_type
 from player_class import Player
 
 
@@ -20,11 +20,12 @@ def main():
     while game_on:
         for event in pygame.event.get():
             if game_over:
-                game_over, first_time = misc.show_game_over_screen(game_over=game_over, first_time=first_time)
+                game_over, first_time = misc.show_game_over_screen(game_over=game_over,
+                                                                   first_time=first_time)
 
                 score = []
                 player = Player()
-                wall, enemy = WALL(), enemy_type()
+                wall, enemy = WALL(), pick_enemy_type()
 
                 SCREEN_UPDATE = pygame.USEREVENT
                 pygame.time.set_timer(SCREEN_UPDATE, 35)
@@ -37,9 +38,12 @@ def main():
                 misc.key_press(event=event, player=player)
             if enemy.body[0].y == 28:
                 score.append(misc.getting_current_score(enemy=enemy))
-                enemy = enemy_type()
+                enemy = pick_enemy_type()
 
-                pygame.time.set_timer(SCREEN_UPDATE, 30) if enemy.__name__ == 'type4' else pygame.time.set_timer(SCREEN_UPDATE, 20)
+                pygame.time.set_timer(SCREEN_UPDATE,
+                                      30) if enemy.__name__ == 'type4' else \
+                    pygame.time.set_timer(
+                    SCREEN_UPDATE, 20)
 
             result = misc.enemy_player_collision(enemy=enemy, player=player)
             if result == 0:
@@ -49,7 +53,7 @@ def main():
 
         wall.draw_wall()
         enemy.draw_enemy()
-        player.draw_aeroplane()
+        player.draw_player()
         misc.displaying_high_score()
         misc.displaying_score(score=score)
 
