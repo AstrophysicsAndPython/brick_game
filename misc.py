@@ -15,10 +15,14 @@ def enemy_player_collision(enemy, player):
     enemy, player = enemy.body, player.body
 
     if name_ in ['type1', 'type4']:
-        if np.logical_and(enemy[-1].x == player[2].x, enemy[-1].y >= player[2].y):
+        if np.logical_and(enemy[-1].x == player[2].x,
+                          enemy[-1].y >= player[2].y):
             return 0
     elif name_ in ['type2', 'type3']:
-        if np.logical_and(np.logical_or(enemy[-1].x == player[2].x, enemy[-4].x == player[2].x), enemy[-1].y >= player[2].y):
+        if np.logical_and(
+                np.logical_or(enemy[-1].x == player[2].x,
+                              enemy[-4].x == player[2].x),
+                enemy[-1].y >= player[2].y):
             return 0
 
 
@@ -27,10 +31,10 @@ def key_press(event, player):
         pygame.quit(), sys.exit()
     elif event.key in [pygame.K_LEFT, pygame.K_a] and player.body[0].x != 1:
         player.direction_vector = pygame.math.Vector2(-5, 0)
-        player.move_aeroplane()
+        player.move_player()
     elif event.key in [pygame.K_RIGHT, pygame.K_d] and player.body[0].x != 11:
         player.direction_vector = pygame.math.Vector2(5, 0)
-        player.move_aeroplane()
+        player.move_player()
 
 
 def display_text(font_size, text_to_display, text_color, pos_x, pos_y, display_position):
@@ -39,13 +43,16 @@ def display_text(font_size, text_to_display, text_color, pos_x, pos_y, display_p
     surface_ = font.render(str(text_to_display), True, pygame.Color(text_color))
     x_, y_ = int(pos_x), int(pos_y)
 
-    rect_ = surface_.get_rect(center=(x_, y_)) if display_position == 'center' else surface_.get_rect(topright=(x_, y_))
+    rect_ = surface_.get_rect(
+            center=(x_, y_)) if display_position == 'center' else surface_.get_rect(
+            topright=(x_, y_))
 
     g_var.screen.blit(surface_, rect_)
 
 
 def show_game_over_screen(game_over, first_time):
-    display_screen_text('WELCOME!', 'gray') if first_time else display_screen_text('GAME OVER!', 'black')
+    display_screen_text('WELCOME!', 'gray') if first_time else display_screen_text(
+            'GAME OVER!', 'black')
 
     pygame.display.flip()
 
@@ -110,7 +117,12 @@ def displaying_score(score):
 
 
 def getting_current_score(enemy):
-    return 10 if enemy.__name__ == 'type1' else 20 if enemy.__name__ in ['type2', 'type3'] else 25
+    if enemy.__name__ == 'type1':
+        return 10
+    elif enemy.__name__ in ['type2', 'type3']:
+        return 20
+    else:
+        return 25
 
 
 def saving_score(score):
