@@ -4,8 +4,12 @@ Created on Nov 25 00:00:00 2021
 
 import pygame
 
-import global_variables as gv
-from misc import V
+try:
+    import global_variables as gv
+    from misc import V
+except ImportError:
+    from . import global_variables as gv
+    from .misc import V
 
 
 class Player:

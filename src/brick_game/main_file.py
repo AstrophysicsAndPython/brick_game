@@ -6,10 +6,16 @@ import sys
 
 import pygame
 
-import global_variables
-import misc
-from enemy_class import WALL, pick_enemy_type
-from player_class import Player
+try:
+    import global_variables
+    import misc
+    from enemy_class import WALL, pick_enemy_type
+    from player_class import Player
+except ImportError:
+    from . import global_variables
+    from . import misc
+    from .enemy_class import WALL, pick_enemy_type
+    from .player_class import Player
 
 
 def main():
