@@ -1,4 +1,3 @@
-include README.md
-
 include src/brick_game/Font/*
-include src/brick_game/high_score/*
+
+include README.md

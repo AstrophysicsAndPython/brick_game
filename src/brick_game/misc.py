@@ -105,20 +105,43 @@ def display_screen_text(big_text, color):
                  display_position='center')
 
 
-def displaying_score(score):
-    display_text(font_size=24,
-                 text_to_display='CURRENT SCORE',
-                 text_color='green',
-                 pos_x=gv.width,
-                 pos_y=50,
-                 display_position='topright')
+def displaying_score(score=None, score_list=None):
+    if score is not None:
+        display_text(font_size=24,
+                     text_to_display='CURRENT SCORE',
+                     text_color='green',
+                     pos_x=gv.width,
+                     pos_y=50,
+                     display_position='topright')
 
-    display_text(font_size=32,
-                 text_to_display=sum(score),
-                 text_color='green',
-                 pos_x=gv.width,
-                 pos_y=70,
-                 display_position='topright')
+        display_text(font_size=32,
+                     text_to_display=sum(score),
+                     text_color='green',
+                     pos_x=gv.width,
+                     pos_y=70,
+                     display_position='topright')
+
+    if score_list is not None:
+        display_text(font_size=24,
+                     text_to_display='Recent 20',
+                     text_color='green',
+                     pos_x=gv.resolution / 2.25,
+                     pos_y=100,
+                     display_position='topright')
+
+        recent_ = [i for i in score_list[::-1][0:15]]
+
+        incr_ = 0
+
+        for recent in recent_:
+            display_text(font_size=24,
+                         text_to_display=int(recent),
+                         text_color='green',
+                         pos_x=gv.width,
+                         pos_y=125 + incr_,
+                         display_position='topright')
+
+            incr_ += 25
 
 
 def getting_current_score(enemy):
@@ -142,9 +165,16 @@ def displaying_high_score():
         num_list = [float(num) for num in read_high_score_file.read().split()]
         max_val = max(num_list)
     except FileNotFoundError:
+        try:
+            os.mkdir(f'{_path}/high_score')
+        except FileExistsError:
+            pass
+        read_high_score_file = open(f'{score_path}/high_score_file.txt', 'w').close()
         max_val = 0
     except ValueError:
         max_val = 0
+
+    displaying_score(score_list=num_list)
 
     display_text(font_size=24,
                  text_to_display='HIGH SCORE',
