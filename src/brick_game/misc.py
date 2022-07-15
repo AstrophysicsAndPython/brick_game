@@ -2,6 +2,7 @@
 Created on Nov 27 00:00:00 2021
 """
 
+import os
 import sys
 
 import numpy as np
@@ -9,9 +10,11 @@ import pygame
 
 import global_variables as g_var
 
+score_path = os.path.join(os.path.dirname(__file__), 'high_score/')
+
 
 def enemy_player_collision(enemy, player):
-    name_ = enemy.__name__
+    name_ = enemy.type_
     enemy, player = enemy.body, player.body
 
     if name_ in ['type1', 'type4']:
@@ -30,10 +33,10 @@ def key_press(event, player):
     if event.key == pygame.K_ESCAPE:
         pygame.quit(), sys.exit()
     elif event.key in [pygame.K_LEFT, pygame.K_a] and player.body[0].x != 1:
-        player.direction_vector = pygame.math.Vector2(-5, 0)
+        player.direction_vector = V(-5, 0)
         player.move_player()
     elif event.key in [pygame.K_RIGHT, pygame.K_d] and player.body[0].x != 11:
-        player.direction_vector = pygame.math.Vector2(5, 0)
+        player.direction_vector = V(5, 0)
         player.move_player()
 
 
@@ -117,26 +120,28 @@ def displaying_score(score):
 
 
 def getting_current_score(enemy):
-    if enemy.__name__ == 'type1':
+    if enemy.type_ == 'type1':
         return 10
-    elif enemy.__name__ in ['type2', 'type3']:
+    elif enemy.type_ in ['type2', 'type3']:
         return 20
     else:
         return 25
 
 
 def saving_score(score):
-    high_score_file = open('high_score_file.txt', 'a')
+    high_score_file = open(f'{score_path}/high_score_file.txt', 'a')
     high_score_file.write(str(sum(score)) + '\n')
     high_score_file.close()
 
 
 def displaying_high_score():
     try:
-        read_high_score_file = open('high_score_file.txt', 'r')
+        read_high_score_file = open(f'{score_path}/high_score_file.txt', 'r')
         num_list = [float(num) for num in read_high_score_file.read().split()]
         max_val = max(num_list)
     except FileNotFoundError:
+        max_val = 0
+    except ValueError:
         max_val = 0
 
     display_text(font_size=24,
@@ -152,3 +157,7 @@ def displaying_high_score():
                  pos_x=g_var.resolution / 2.25,
                  pos_y=20,
                  display_position='topright')
+
+
+def V(x, y):
+    return pygame.Vector2(x, y)
