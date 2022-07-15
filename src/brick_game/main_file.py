@@ -36,20 +36,17 @@ def main():
                 enemy.move_enemy()
             if event.type == pygame.KEYDOWN:
                 misc.key_press(event=event, player=player)
-            if enemy.body[0].y == 28:
+            if enemy.body[0].y > player.body[-1].y:
                 score.append(misc.getting_current_score(enemy=enemy))
                 enemy = pick_enemy_type()
 
-                pygame.time.set_timer(SCREEN_UPDATE,
-                                      30) if enemy.__name__ == 'type4' else \
-                    pygame.time.set_timer(
-                    SCREEN_UPDATE, 20)
+                pygame.time.set_timer(SCREEN_UPDATE, 30) if enemy.type_ == 'type4' else \
+                    pygame.time.set_timer(SCREEN_UPDATE, 20)
 
             result = misc.enemy_player_collision(enemy=enemy, player=player)
             if result == 0:
+                misc.saving_score(score=score)
                 game_over = True
-                if score != 0:
-                    misc.saving_score(score=score)
 
         wall.draw_wall()
         enemy.draw_enemy()
