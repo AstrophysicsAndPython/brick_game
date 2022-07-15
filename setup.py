@@ -15,7 +15,7 @@ setup(
         long_description=readme,
         long_description_content_type="text/markdown",
         python_requires=">=3.7.*, <3.10.*",
-        install_requires=["pygame~=2.1.2", "setuptools~=45.2.0"],
+        install_requires=["pygame~=2.1.2", "setuptools~=59.6.0"],
         include_package_data=True,
         classifiers=[
             "License :: OSI Approved :: MIT License",

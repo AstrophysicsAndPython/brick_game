@@ -40,13 +40,15 @@ class WALL:
         for block in self.wall_left:
             wall_left_x = int(block.x * gv.cell_size)
             wall_left_y = int(block.y * gv.cell_size)
-            wall_left_rect = pygame.Rect(wall_left_x, wall_left_y, gv.cell_size, gv.cell_size)
+            wall_left_rect = pygame.Rect(wall_left_x, wall_left_y, gv.cell_size,
+                                         gv.cell_size)
             pygame.draw.rect(gv.screen, pygame.Color('red'), wall_left_rect)
 
         for block in self.wall_right:
             wall_right_x = int(block.x * gv.cell_size)
             wall_right_y = int(block.y * gv.cell_size)
-            wall_right_rect = pygame.Rect(wall_right_x, wall_right_y, gv.cell_size, gv.cell_size)
+            wall_right_rect = pygame.Rect(wall_right_x, wall_right_y, gv.cell_size,
+                                          gv.cell_size)
             pygame.draw.rect(gv.screen, pygame.Color('red'), wall_right_rect)
 
 
@@ -60,7 +62,8 @@ class EnemyType1:
                      V(pos + 2, -4),
                      V(pos + 1, -3), V(pos + 2, -3), V(pos + 3, -3),
                      V(pos + 0, -2), V(pos + 2, -2), V(pos + 4, -2)]
-        self.direction_vector = V(0, 1)
+
+        self.direction_vector = V(0, 1.5 if random.choice([0, 1, 2, 3, 4]) == 2 else 1)
 
     def draw_enemy(self):
         for block in self.body:
@@ -88,7 +91,8 @@ class EnemyType2:
                      V(pos + 6, -3), V(pos + 7, -3), V(pos + 8, -3),
                      V(pos + 0, -2), V(pos + 2, -2), V(pos + 4, -2),
                      V(pos + 5, -2), V(pos + 7, -2), V(pos + 9, -2)]
-        self.direction_vector = V(0, 1)
+
+        self.direction_vector = V(0, 1.5 if random.choice([0, 1, 2, 3, 4]) == 2 else 1)
 
     def draw_enemy(self):
         for block in self.body:
@@ -112,9 +116,9 @@ class EnemyType3:
                      V(2, -5), V(3, -5), V(4, -5), V(12, -5), V(13, -5), V(14, -5),
                      V(3, -4), V(13, -4),
                      V(2, -3), V(3, -3), V(4, -3), V(12, -3), V(13, -3), V(14, -3),
-                     V(1, -2), V(3, -2), V(5, -2), V(11, -2), V(13, -2), V(15, -2)
-                     ]
-        self.direction_vector = V(0, 1)
+                     V(1, -2), V(3, -2), V(5, -2), V(11, -2), V(13, -2), V(15, -2)]
+
+        self.direction_vector = V(0, 1.5 if random.choice([0, 1, 2, 3, 4]) == 2 else 1)
 
     def draw_enemy(self):
         for block in self.body:
@@ -139,9 +143,12 @@ class EnemyType4:
                      V(pos + 1, -4), V(pos + 2, -4), V(pos + 3, -4),
                      V(pos + 1, -3), V(pos + 2, -3), V(pos + 3, -3),
                      V(pos + 0, -2), V(pos + 2, -2), V(pos + 4, -2)]
-        self.move_down = V(0, 1)
-        self.move_down_right = V(5, 1)
-        self.move_down_left = V(-5, 1)
+
+        y_speed = 2 if random.choice([0, 1, 2, 3, 4]) == 2 else 1
+
+        self.move_down = V(0, y_speed)
+        self.move_down_right = V(5, y_speed)
+        self.move_down_left = V(-5, y_speed)
 
     def draw_enemy(self):
         for block in self.body:
