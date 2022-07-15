@@ -6,8 +6,12 @@ import random
 
 import pygame
 
-import global_variables as gv
-from misc import V
+try:
+    import global_variables as gv
+    from misc import V
+except ImportError:
+    from . import global_variables as gv
+    from .misc import V
 
 wall_right = [V(0, blocks) for blocks in range(gv.cell_number)]
 wall_left = [V(16, blocks) for blocks in range(gv.cell_number)]
