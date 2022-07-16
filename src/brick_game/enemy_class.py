@@ -56,6 +56,7 @@ class EnemyType1:
 
     def __init__(self):
         pos = spawn_position_type2()
+
         self.type_ = 'type1'
         self.body = [V(pos + 0, -6), V(pos + 2, -6), V(pos + 4, -6),
                      V(pos + 1, -5), V(pos + 2, -5), V(pos + 3, -5),
@@ -81,6 +82,7 @@ class EnemyType2:
 
     def __init__(self):
         pos = spawn_position_type2()
+
         self.type_ = 'type2'
         self.body = [V(pos + 0, -6), V(pos + 2, -6), V(pos + 4, -6),
                      V(pos + 5, -6), V(pos + 7, -6), V(pos + 9, -6),
@@ -111,7 +113,6 @@ class EnemyType3:
 
     def __init__(self):
         self.type_ = 'type3'
-
         self.body = [V(1, -6), V(3, -6), V(5, -6), V(11, -6), V(13, -6), V(15, -6),
                      V(2, -5), V(3, -5), V(4, -5), V(12, -5), V(13, -5), V(14, -5),
                      V(3, -4), V(13, -4),
@@ -135,9 +136,9 @@ class EnemyType3:
 class EnemyType4:
 
     def __init__(self):
+        pos = spawn_position_type1()
 
         self.type_ = 'type4'
-        pos = spawn_position_type1()
         self.body = [V(pos + 0, -6), V(pos + 2, -6), V(pos + 4, -6),
                      V(pos + 1, -5), V(pos + 2, -5), V(pos + 3, -5),
                      V(pos + 1, -4), V(pos + 2, -4), V(pos + 3, -4),
@@ -158,23 +159,24 @@ class EnemyType4:
             pygame.draw.rect(gv.screen, pygame.Color('red'), enemy_rect)
 
     def move_enemy(self):
-        move_pos_array = [2, 7, 12]
+        move_pos_array = [2, 7, 12, 17]
         for body1 in self.body:
             body1 += self.move_down
-            if body1.x == 1 and body1.y in move_pos_array:
-                for body2 in self.body:
-                    body2 += self.move_down_right
-            elif body1.x == 6 and body1.y in move_pos_array:
-                rand_int = random.randint(0, 50)
-                if rand_int % 2 == 0:
-                    for body2 in self.body:
-                        body2 += self.move_down_left
-                else:
+            if body1.y in move_pos_array:
+                if body1.x == 1:
                     for body2 in self.body:
                         body2 += self.move_down_right
-            elif body1.x == 11 and body1.y in move_pos_array:
-                for body3 in self.body:
-                    body3 += self.move_down_left
+                elif body1.x == 6:
+                    rand_int = random.randint(0, 10)
+                    if rand_int % 2 == 0:
+                        for body2 in self.body:
+                            body2 += self.move_down_left
+                    else:
+                        for body2 in self.body:
+                            body2 += self.move_down_right
+                elif body1.x == 11:
+                    for body3 in self.body:
+                        body3 += self.move_down_left
 
 
 def pick_enemy_type():

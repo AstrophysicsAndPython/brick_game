@@ -116,20 +116,20 @@ def displaying_score(score=None, score_list=None):
 
         display_text(font_size=32,
                      text_to_display=sum(score),
-                     text_color='green',
+                     text_color='blue',
                      pos_x=gv.width,
                      pos_y=70,
                      display_position='topright')
 
     if score_list is not None:
         display_text(font_size=24,
-                     text_to_display='Recent 20',
+                     text_to_display='Top 20 scores',
                      text_color='green',
                      pos_x=gv.resolution / 2.25,
-                     pos_y=100,
+                     pos_y=110,
                      display_position='topright')
 
-        recent_ = [i for i in score_list[::-1][0:15]]
+        recent_ = sorted(score_list)[::-1][0:20]
 
         incr_ = 0
 
@@ -138,7 +138,7 @@ def displaying_score(score=None, score_list=None):
                          text_to_display=int(recent),
                          text_color='green',
                          pos_x=gv.width,
-                         pos_y=125 + incr_,
+                         pos_y=135 + incr_,
                          display_position='topright')
 
             incr_ += 25
@@ -169,7 +169,7 @@ def displaying_high_score():
             os.mkdir(f'{_path}/high_score')
         except FileExistsError:
             pass
-        read_high_score_file = open(f'{score_path}/high_score_file.txt', 'w').close()
+        open(f'{score_path}/high_score_file.txt', 'w').close()
         max_val = 0
     except ValueError:
         max_val = 0
