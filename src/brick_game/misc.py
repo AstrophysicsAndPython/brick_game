@@ -115,8 +115,8 @@ def displaying_score(score=None, score_list=None):
                      display_position='topright')
 
         display_text(font_size=32,
-                     text_to_display=sum(score),
-                     text_color='blue',
+                     text_to_display=f'{sum(score)} ',
+                     text_color='green',
                      pos_x=gv.width,
                      pos_y=70,
                      display_position='topright')
@@ -135,7 +135,7 @@ def displaying_score(score=None, score_list=None):
 
         for recent in recent_:
             display_text(font_size=24,
-                         text_to_display=int(recent),
+                         text_to_display=f'{int(recent)} ',
                          text_color='green',
                          pos_x=gv.width,
                          pos_y=135 + incr_,
@@ -187,7 +187,7 @@ def displaying_high_score():
                  display_position='topright')
 
     display_text(font_size=32,
-                 text_to_display=int(max_val),
+                 text_to_display=f'{int(max_val)} ',
                  text_color='green',
                  pos_x=gv.resolution / 2.25,
                  pos_y=20,
