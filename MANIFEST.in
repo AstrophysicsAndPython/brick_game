@@ -1,4 +1,4 @@
-include src/brick_game/Font/*
+include brick_game/Font/*
 
 include src/README.md
 include src/imgs/*
