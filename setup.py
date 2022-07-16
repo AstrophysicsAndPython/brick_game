@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
         name='brick_game',
-        version='0.1.0',
+        version='0.1.1',
         packages=find_packages(where="src"),
         url='https://github.com/AstrophysicsAndPython/brick_game',
         license='MIT',

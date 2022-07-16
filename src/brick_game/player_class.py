@@ -28,7 +28,7 @@ class Player:
             player_x = int(block.x * gv.cell_size)
             player_y = int(block.y * gv.cell_size)
             player_rect = pygame.Rect(player_x, player_y, gv.cell_size, gv.cell_size)
-            pygame.draw.rect(gv.screen, pygame.Color('red'), player_rect)
+            pygame.draw.rect(gv.screen, pygame.Color('blue'), player_rect)
 
     def move_player(self):
         for block in self.body:
