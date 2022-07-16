@@ -174,7 +174,10 @@ def displaying_high_score():
     except ValueError:
         max_val = 0
 
-    displaying_score(score_list=num_list)
+    try:
+        displaying_score(score_list=num_list)
+    except UnboundLocalError:
+        pass
 
     display_text(font_size=24,
                  text_to_display='HIGH SCORE',
